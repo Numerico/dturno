@@ -43,3 +43,10 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'therubyracer' # jS runtime for rails to run, as usual...
+
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+end
