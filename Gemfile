@@ -44,7 +44,11 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'therubyracer' # jS runtime for rails to run, as usual...
+# jS runtime for rails to run (TODO default it?)
+gem 'therubyracer'
+
+# use HAML as the templating engine
+gem "haml-rails"
 
 group :test do
   gem 'cucumber-rails', require: false
