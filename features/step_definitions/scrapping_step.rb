@@ -8,3 +8,9 @@ end
 Then(/^I should find (\d+) excel download links$/) do |n|
   GovDoc.count.should eq n.to_i
 end
+
+Then(/^I should download the files$/) do
+  doc = GovDoc.first.content
+  doc.should_not be nil
+  expect{File.open("/tmp/dturno_excel", 'wb'){|o| o.write doc }}.to_not raise_error
+end

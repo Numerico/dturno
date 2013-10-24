@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131024195957) do
+ActiveRecord::Schema.define(version: 20131024204820) do
 
   create_table "gov_docs", force: true do |t|
     t.text     "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.binary   "content"
   end
 
 end

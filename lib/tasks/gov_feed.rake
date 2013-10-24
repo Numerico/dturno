@@ -4,6 +4,7 @@ task :gov_feed do
   page = agent.get 'http://datos.gob.cl/datasets/ver/1547'
   links = page.links_with text: /para las farmacias de la/
   links.each do |link|
-    GovDoc.create link: link.text
+  	file = agent.get link.href
+    GovDoc.create link: link.href, name: file.filename, content: file.content
   end
 end
