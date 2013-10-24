@@ -57,4 +57,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'debugger'
 end
+
+gem 'mechanize'
