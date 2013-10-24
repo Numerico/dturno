@@ -10,7 +10,13 @@ Then(/^I should find (\d+) excel download links$/) do |n|
 end
 
 Then(/^I should download the files$/) do
-  doc = GovDoc.first.content
-  doc.should_not be nil
-  expect{File.open("/tmp/dturno_excel", 'wb'){|o| o.write doc }}.to_not raise_error
+  @doc = GovDoc.first.content
+  @doc.should_not be nil
+  @tmp = "/tmp/dturno_excel.xlsx"
+  expect{File.open(@tmp, 'wb'){|output| output.write @doc }}.to_not raise_error
+end
+
+Then(/^I should parse the files to ruby$/) do
+  excel = Roo::Excelx.new @tmp
+  excel.should_not be nil
 end

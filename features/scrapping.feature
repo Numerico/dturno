@@ -6,4 +6,5 @@ Feature: Obtain information from datos.gob.cl
 Scenario: Scrap the government page for each region
   Given I run the feeding task
   	Then I should find 15 excel download links
-  	And I should download the files
+  	  And I should download the files
+  	  And I should parse the files to ruby
