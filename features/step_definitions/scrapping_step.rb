@@ -20,3 +20,7 @@ Then(/^I should parse the files to ruby$/) do
   excel = Roo::Excelx.new @tmp
   excel.should_not be nil
 end
+
+Then(/^I should save the drugstores to the database$/) do
+  DrugStore.count.should > 100
+end
