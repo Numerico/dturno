@@ -17,18 +17,15 @@ task :gov_feed => :environment do
   drugs = []
   GovDoc.all.each do |doc|
     File.open(tmp, 'wb'){ |output| output.write doc.content }
-    excel = Roo::Excelx.new tmp # most costly, TODO cannot parse stream?
-    2..excel.count do |row|
+    excel = SimpleXlsxReader.open tmp # most , TODO cannot parse stream?
+    data = excel.sheets.first.data
+    data.each do |row|
       next if row[1].nil? && row[2].nil?
-      begin
-        store = DrugStore.new(name: row[2], address: row[3], day: row[4], month: row[5], time: row[6])
-      rescue
-      end
-      drugs << store unless store.nil?
+      drugs <<  DrugStore.new(name: row[2], address: row[3], day: row[4], month: row[5], time: row[6])
     end
-    puts "GovDoc #{doc.name} done"
+    DrugStore.import drugs
+    puts "GovDoc #{doc.name} done. #{DrugStore.count} drugstores total"
+    drugs = []
   end
-
-  debugger
 
 end

@@ -60,5 +60,10 @@ group :development, :test do
   gem 'debugger'
 end
 
+gem 'pg'
+
 gem 'mechanize'
-gem 'roo'
+
+gem 'simple_xlsx_reader'
+
+gem 'activerecord-import'
