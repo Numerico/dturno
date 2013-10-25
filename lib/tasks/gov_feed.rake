@@ -14,15 +14,21 @@ task :gov_feed do
     GovDoc.create link: link.href, name: file.filename, content: file.content
   end
 
+  drugs = []
   GovDoc.all.each do |doc|
-    File.open(tmp, 'wb'){|output| output.write doc.content }
-    excel = Roo::Excelx.new tmp
-    excel.first do |row|
-      # TODO region/comuna
-      next if row[2].nil?
-      dg = DrugStore.create name: row[2], address: row[3], day: row[4], month: row[5], time: row[6]
-      puts "drugstore n°#{dg.id} created"
+    File.open(tmp, 'wb'){ |output| output.write doc.content }
+    excel = Roo::Excelx.new tmp # most costly, TODO cannot parse stream?
+    2..excel.count do |row|
+      next if row[1].nil? && row[2].nil?
+      begin
+        store = DrugStore.new(name: row[2], address: row[3], day: row[4], month: row[5], time: row[6])
+      rescue
+      end
+      drugs << store unless store.nil?
     end
+    puts "GovDoc #{doc.name} done"
   end
+
+  debugger
 
 end
