@@ -1,5 +1,5 @@
 desc "scrap chilean gov.'s web page to obtain drugstores nightly service schedule"
-task :gov_feed do
+task :gov_feed => :environment do
 
   url = 'http://datos.gob.cl/datasets/ver/1547'
   regex = /para las farmacias de la/
