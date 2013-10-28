@@ -11,20 +11,23 @@ task :gov_feed => :environment do
 
   links.each do |link|
   	file = agent.get link.href
-    GovDoc.create link: link.href, name: file.filename, content: file.content
+    GovDoc.create! link: link.href, name: file.filename, content: file.content
+    Rails.logger.info "downloaded #{link.href}"
   end
 
   drugs = []
-  GovDoc.all.each do |doc|
+  GovDoc.find_each(batch_size: 1) do |doc|
+    next if doc.name.match /Maule/ # TODO VII.Reg. doc broken
+    Rails.logger.info "GovDoc #{doc.name}"
     File.open(tmp, 'wb'){ |output| output.write doc.content }
-    excel = SimpleXlsxReader.open tmp # most , TODO cannot parse stream?
+    excel = SimpleXlsxReader.open tmp # most expensive, TODO cannot parse stream?
     data = excel.sheets.first.data
     data.each do |row|
       next if row[1].nil? && row[2].nil?
       drugs <<  DrugStore.new(name: row[2], address: row[3], day: row[4], month: row[5], time: row[6])
     end
     DrugStore.import drugs
-    puts "GovDoc #{doc.name} done. #{DrugStore.count} drugstores total"
+    Rails.logger.info "#{DrugStore.count} drugstores total"
     drugs = []
   end
 
