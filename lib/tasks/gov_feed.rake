@@ -19,6 +19,7 @@ task :gov_feed => :environment do
   GovDoc.find_each(batch_size: 1) do |doc|
     next if doc.name.match /Maule/ # TODO VII.Reg. doc broken
     Rails.logger.info "GovDoc #{doc.name}"
+    #TODO REGION Y COMUNA
     File.open(tmp, 'wb'){ |output| output.write doc.content }
     excel = SimpleXlsxReader.open tmp # most expensive, TODO cannot parse stream?
     data = excel.sheets.first.data

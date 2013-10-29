@@ -21,8 +21,8 @@ Then(/^I should parse the files to ruby$/) do
   @excel.should_not be nil
 end
 
-Then(/^I should save the drugstores to the database$/) do
+Then(/^I should have more than (\d+) drugstores$/) do |n|
   data = @excel.sheets.first.data
   data.should_not be nil
-  DrugStore.count.should > 100
+  DrugStore.count.should > n.to_i
 end

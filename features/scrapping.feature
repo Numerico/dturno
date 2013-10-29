@@ -8,4 +8,4 @@ Scenario: Scrap the government page for each region
   	Then I should find 15 excel download links
   	  And I should download the files
   	  And I should parse the files to ruby
-  	  And I should save the drugstores to the database
+  	  And I should have more than 36000 drugstores
