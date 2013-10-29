@@ -26,3 +26,7 @@ Then(/^I should have more than (\d+) drugstores$/) do |n|
   data.should_not be nil
   DrugStore.count.should > n.to_i
 end
+
+Then(/^I should end up with (\d+) "(.*?)"$/) do |n, type|
+  eval(type).count.should > n.to_i
+end

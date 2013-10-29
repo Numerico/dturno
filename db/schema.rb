@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131024214402) do
+ActiveRecord::Schema.define(version: 20131029022309) do
+
+  create_table "comunas", force: true do |t|
+    t.string   "nombre"
+    t.integer  "region_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comunas", ["region_id"], name: "index_comunas_on_region_id", using: :btree
 
   create_table "drug_stores", force: true do |t|
     t.string   "name"
@@ -21,7 +30,10 @@ ActiveRecord::Schema.define(version: 20131024214402) do
     t.text     "time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "comuna_id"
   end
+
+  add_index "drug_stores", ["comuna_id"], name: "index_drug_stores_on_comuna_id", using: :btree
 
   create_table "gov_docs", force: true do |t|
     t.text     "link"
@@ -29,6 +41,13 @@ ActiveRecord::Schema.define(version: 20131024214402) do
     t.datetime "updated_at"
     t.string   "name"
     t.binary   "content"
+  end
+
+  create_table "regions", force: true do |t|
+    t.integer  "numero"
+    t.string   "nombre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

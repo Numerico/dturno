@@ -9,3 +9,5 @@ Scenario: Scrap the government page for each region
   	  And I should download the files
   	  And I should parse the files to ruby
   	  And I should have more than 36000 drugstores
+  	  And I should end up with 15 "Region"
+  	  And I should end up with 5000 "Comuna"
