@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029022309) do
+ActiveRecord::Schema.define(version: 20131029202316) do
 
   create_table "comunas", force: true do |t|
     t.string   "nombre"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20131029022309) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "comuna_id"
+    t.date     "date"
   end
 
   add_index "drug_stores", ["comuna_id"], name: "index_drug_stores_on_comuna_id", using: :btree
