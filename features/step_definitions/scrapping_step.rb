@@ -21,12 +21,11 @@ Then(/^I should parse the files to ruby$/) do
   @excel.should_not be nil
 end
 
-Then(/^I should have more than (\d+) drugstores$/) do |n|
-  data = @excel.sheets.first.data
-  data.should_not be nil
-  DrugStore.count.should > n.to_i
-end
-
-Then(/^I should end up with (\d+) "(.*?)"$/) do |n, type|
-  eval(type).count.should > n.to_i
+Then(/^I should end up with (more than\s)?(\d+) "(.*?)"$/) do |more, n, type|
+  count = eval(type).count.should
+  if more
+    count.should > n.to_i
+  else
+    count.should eq n.to_i
+  end
 end
